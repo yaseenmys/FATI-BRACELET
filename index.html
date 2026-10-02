@@ -1,1343 +1,656 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PINKU - MYS DEVELOPER</title>
+<title>Fati Bracelets - Handmade with Love | Karachi</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Noto Naskh Arabic', sans-serif; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
   html { scroll-behavior: smooth; }
+  body { background: #fff8f3; color: #333; line-height: 1.6; }
 
-  body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 50%, #ffd1e3 100%);
-    color: #4a1a2e;
-    overflow-x: hidden;
-  }
-
-  /* ============ ANIMATED HEARTS BG ============ */
-  .bg-hearts {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .bg-hearts .heart {
-    position: absolute;
-    font-size: 24px;
-    opacity: 0.15;
-    animation: floatUp linear infinite;
-  }
-
-  @keyframes floatUp {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.25; }
-    90% { opacity: 0.25; }
-    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-  }
-
-  /* ============ BLOBS ============ */
-  .bg-blobs {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-  }
-
-  .bg-blobs .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.5;
-    animation: blobFloat 20s ease-in-out infinite;
-  }
-
-  .bg-blobs .blob:nth-child(1) { width: 500px; height: 500px; background: #ff69b4; top: -150px; left: -100px; }
-  .bg-blobs .blob:nth-child(2) { width: 450px; height: 450px; background: #ffb6d5; bottom: -150px; right: -100px; animation-delay: -7s; }
-  .bg-blobs .blob:nth-child(3) { width: 400px; height: 400px; background: #ff85c0; top: 40%; left: 40%; animation-delay: -14s; }
-
-  @keyframes blobFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(80px, -50px) scale(1.15); }
-    66% { transform: translate(-60px, 80px) scale(0.9); }
-  }
-
-  /* ============ NAVBAR ============ */
-  .navbar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background: rgba(255, 240, 245, 0.85);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 2px solid rgba(255, 105, 180, 0.3);
-    padding: 12px 25px;
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #d4a5a5, #b76e79);
+    color: white;
+    padding: 18px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 5px 25px rgba(255, 105, 180, 0.15);
-    gap: 15px;
-  }
-
-  .nav-logo {
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    background: linear-gradient(135deg, #ff1493, #ff69b4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 3px 10px rgba(255, 20, 147, 0.3));
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     flex-wrap: wrap;
+    gap: 10px;
   }
-
-  .nav-item {
+  .logo { font-size: 26px; font-weight: bold; letter-spacing: 1px; }
+  .logo span { color: #ffe4e1; }
+  nav { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: 0.3s;
+    font-size: 15px;
+  }
+  nav a:hover { color: #ffe4e1; }
+  .cart-btn {
+    background: #ffe4e1;
+    color: #b76e79;
     padding: 8px 18px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 2px solid transparent;
-    border-radius: 30px;
-    color: #a0446a;
-    font-size: 13px;
-    font-weight: 700;
+    border-radius: 20px;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 1px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .nav-item:hover {
-    border-color: #ff69b4;
-    color: #ff1493;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3);
-  }
-
-  .nav-item.active {
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
-    border-color: #ff1493;
-    box-shadow: 0 6px 20px rgba(255, 20, 147, 0.5);
-  }
-
-  /* ============ HERO / MAIN ============ */
-  .hero {
-    min-height: calc(100vh - 60px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
-
-  .pinku-title {
-    font-size: 140px;
-    font-weight: 900;
-    letter-spacing: 14px;
-    line-height: 1;
-    background: linear-gradient(135deg, #ff1493 0%, #ff69b4 30%, #ff85c0 50%, #ff1493 70%, #ff69b4 100%);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientMove 4s ease infinite;
-    filter: drop-shadow(0 10px 40px rgba(255, 20, 147, 0.5));
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-  }
-
-  @keyframes gradientMove {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .pinku-title .heart-deco {
-    position: absolute;
-    top: 50%;
-    font-size: 55px;
-    filter: drop-shadow(0 0 20px #ff1493);
-    animation: heartPulse 1.5s ease-in-out infinite;
-  }
-
-  .pinku-title .heart-deco.left { left: -90px; transform: translateY(-50%); }
-  .pinku-title .heart-deco.right { right: -90px; transform: translateY(-50%); animation-delay: 0.5s; }
-
-  @keyframes heartPulse {
-    0%, 100% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-50%) scale(1.3); }
-  }
-
-  .mys-dev {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 26px;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px);
-    border: 2px solid #ff69b4;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: #ff1493;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
-    margin-bottom: 30px;
-    animation: fadeInUp 0.8s ease 0.3s both;
-  }
-
-  .mys-dev .star { font-size: 16px; animation: heartPulse2 1.5s ease-in-out infinite; }
-
-  @keyframes heartPulse2 {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Live Clock */
-  .clock-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 28px;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(15px);
-    border: 2px solid #ffb6d5;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 800;
-    color: #ff1493;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.25);
-    margin-bottom: 30px;
-    animation: fadeInUp 0.8s ease 0.5s both;
-    letter-spacing: 1px;
-  }
-
-  .clock-box .icon { font-size: 22px; animation: heartPulse2 2s ease-in-out infinite; }
-  .clock-box .time { font-family: 'Courier New', monospace; letter-spacing: 2px; }
-  .clock-box .date { font-size: 12px; color: #a0446a; letter-spacing: 2px; }
-
-  .btn-group {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeInUp 0.8s ease 0.7s both;
-  }
-
-  .btn-pink {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 40px;
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
     border: none;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 800;
+    margin-left: 20px;
+    transition: 0.3s;
+  }
+  .cart-btn:hover { background: white; transform: scale(1.05); }
+  .cart-count {
+    background: #b76e79;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50%;
+    margin-left: 5px;
+    font-size: 13px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(rgba(183,110,121,0.75), rgba(212,165,165,0.75)),
+                url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600') center/cover;
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+  }
+  .hero h1 { font-size: 52px; margin-bottom: 15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); }
+  .hero p { font-size: 21px; margin-bottom: 30px; }
+  .btn {
+    background: #fff;
+    color: #b76e79;
+    padding: 14px 38px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    box-shadow: 0 12px 35px rgba(255, 20, 147, 0.4);
     text-decoration: none;
-    position: relative;
-    overflow: hidden;
+    display: inline-block;
+    transition: 0.3s;
+    margin: 5px;
   }
-
-  .btn-pink::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.6s;
-  }
-
-  .btn-pink:hover::before { left: 100%; }
-
-  .btn-pink:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 20px 45px rgba(255, 20, 147, 0.6);
-  }
-
+  .btn:hover { background: #ffe4e1; transform: translateY(-3px); }
   .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 40px;
-    background: rgba(255, 255, 255, 0.7);
-    color: #ff1493;
-    border: 2px solid #ff69b4;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    backdrop-filter: blur(10px);
+    background: transparent;
+    color: white;
+    border: 2px solid white;
   }
+  .btn-outline:hover { background: white; color: #b76e79; }
 
-  .btn-outline:hover {
-    background: #ff69b4;
-    color: #fff;
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
-  }
-
-  /* ============ SECTION ============ */
-  .section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 70px 20px;
-    position: relative;
-    z-index: 1;
-  }
-
+  /* Section titles */
   .section-title {
     text-align: center;
+    font-size: 38px;
+    color: #b76e79;
+    margin: 70px 0 15px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 17px;
     margin-bottom: 45px;
+    padding: 0 20px;
   }
 
-  .section-title h2 {
-    font-size: 38px;
-    font-weight: 900;
-    color: #ff1493;
-    margin-bottom: 10px;
-  }
-
-  .section-title p {
-    color: #a0446a;
-    font-size: 15px;
-  }
-
-  .section-title .deco {
-    display: inline-block;
-    margin-top: 12px;
-    font-size: 20px;
-    letter-spacing: 8px;
-    color: #ff69b4;
-  }
-
-  /* ============ FEATURES ============ */
-  .cards-grid {
+  /* Products */
+  .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px;
-  }
-
-  .pink-card {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 105, 180, 0.3);
-    border-radius: 24px;
-    padding: 32px 25px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 35px rgba(255, 105, 180, 0.15);
-    text-align: center;
-  }
-
-  .pink-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: #ff1493;
-    box-shadow: 0 25px 60px rgba(255, 20, 147, 0.35);
-  }
-
-  .card-icon {
-    width: 75px;
-    height: 75px;
-    margin: 0 auto 16px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #ffb6d5, #ff69b4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 38px;
-    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
-    transition: all 0.4s;
-  }
-
-  .pink-card:hover .card-icon {
-    transform: scale(1.12) rotate(-8deg);
-    box-shadow: 0 15px 35px rgba(255, 20, 147, 0.5);
-  }
-
-  .pink-card h3 {
-    font-size: 18px;
-    font-weight: 800;
-    color: #ff1493;
-    margin-bottom: 8px;
-  }
-
-  .pink-card p {
-    font-size: 13px;
-    color: #a0446a;
-    line-height: 1.7;
-  }
-
-  /* ============ COUNTERS ============ */
-  .counters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    margin-top: 50px;
-  }
-
-  .counter-box {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255, 105, 180, 0.3);
-    border-radius: 20px;
-    padding: 24px 15px;
-    text-align: center;
-    transition: 0.3s;
-  }
-
-  .counter-box:hover {
-    transform: translateY(-5px);
-    border-color: #ff1493;
-    box-shadow: 0 15px 35px rgba(255, 20, 147, 0.25);
-  }
-
-  .counter-box .num {
-    font-size: 36px;
-    font-weight: 900;
-    background: linear-gradient(90deg, #ff1493, #ff69b4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .counter-box .lbl {
-    font-size: 11px;
-    color: #a0446a;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 5px;
-    font-weight: 700;
-  }
-
-  /* ============ GALLERY ============ */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 18px;
-  }
-
-  .gallery-item {
-    aspect-ratio: 1;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 80px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.25);
-    border: 3px solid rgba(255, 255, 255, 0.6);
-  }
-
-  .gallery-item:nth-child(1) { background: linear-gradient(135deg, #ffb6d5, #ff69b4); }
-  .gallery-item:nth-child(2) { background: linear-gradient(135deg, #ffc0cb, #ff85c0); }
-  .gallery-item:nth-child(3) { background: linear-gradient(135deg, #ffd1e3, #ff69b4); }
-  .gallery-item:nth-child(4) { background: linear-gradient(135deg, #ff85c0, #ff1493); }
-  .gallery-item:nth-child(5) { background: linear-gradient(135deg, #ffb6d5, #ff1493); }
-  .gallery-item:nth-child(6) { background: linear-gradient(135deg, #ffc0cb, #ff69b4); }
-  .gallery-item:nth-child(7) { background: linear-gradient(135deg, #ff69b4, #ff1493); }
-  .gallery-item:nth-child(8) { background: linear-gradient(135deg, #ffb6d5, #ff85c0); }
-
-  .gallery-item:hover {
-    transform: scale(1.08) rotate(3deg);
-    box-shadow: 0 20px 50px rgba(255, 20, 147, 0.4);
-    z-index: 2;
-  }
-
-  .gallery-item .caption {
-    position: absolute;
-    bottom: 12px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 12px;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: 0.3s;
-  }
-
-  .gallery-item:hover .caption { opacity: 1; }
-
-  /* ============ MUSIC PLAYER ============ */
-  .music-player {
-    max-width: 500px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 0 40px 60px;
+    max-width: 1200px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border: 3px solid #ff69b4;
-    border-radius: 28px;
-    padding: 30px;
+  }
+  .card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(183,110,121,0.15);
+    transition: 0.3s;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3);
   }
-
-  .music-album {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ffb6d5, #ff1493);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 70px;
-    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
-    border: 6px solid rgba(255, 255, 255, 0.6);
-    transition: all 0.3s;
-  }
-
-  .music-album.playing {
-    animation: spin 4s linear infinite;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .music-player h3 {
-    font-size: 20px;
-    color: #ff1493;
-    margin-bottom: 5px;
-    font-weight: 800;
-  }
-
-  .music-player p {
-    font-size: 13px;
-    color: #a0446a;
+  .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(183,110,121,0.3); }
+  .card img { width: 100%; height: 240px; object-fit: cover; }
+  .card h3 { color: #b76e79; margin: 15px 0 8px; font-size: 20px; }
+  .card .price { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 12px; }
+  .card button {
+    background: #b76e79;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
     margin-bottom: 20px;
-  }
-
-  .music-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    align-items: center;
-  }
-
-  .music-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
-  }
-
-  .music-btn:hover {
-    transform: scale(1.12);
-    box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
-  }
-
-  .music-btn.big {
-    width: 65px;
-    height: 65px;
-    font-size: 26px;
-  }
-
-  .music-progress {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 105, 180, 0.2);
-    border-radius: 3px;
-    margin-top: 20px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .music-progress .bar {
-    height: 100%;
-    background: linear-gradient(90deg, #ff69b4, #ff1493);
-    width: 0%;
-    border-radius: 3px;
-    transition: width 0.3s;
-  }
-
-  /* ============ CONTACT FORM ============ */
-  .contact-form {
-    max-width: 550px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border: 3px solid #ffb6d5;
-    border-radius: 28px;
-    padding: 40px 35px;
-    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.25);
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    background: rgba(255, 240, 245, 0.8);
-    border: 2px solid #ffb6d5;
-    border-radius: 14px;
-    color: #4a1a2e;
-    font-size: 15px;
-    outline: none;
-    transition: 0.3s;
-    font-family: inherit;
-  }
-
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    border-color: #ff1493;
-    background: #fff;
-    box-shadow: 0 0 25px rgba(255, 20, 147, 0.25);
-  }
-
-  .contact-form textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-
-  .contact-form button {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: 0.3s;
-    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
-  }
-
-  .contact-form button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
-  }
-
-  /* ============ QUOTE ============ */
-  .quote-section {
-    text-align: center;
-    padding: 60px 30px;
-    background: linear-gradient(135deg, rgba(255, 182, 213, 0.5), rgba(255, 105, 180, 0.25));
-    border-radius: 40px;
-    max-width: 900px;
-    margin: 40px auto;
-    position: relative;
-    border: 2px solid rgba(255, 105, 180, 0.3);
-  }
-
-  .quote-section .quote {
-    font-size: 26px;
-    font-weight: 700;
-    color: #ff1493;
-    line-height: 1.5;
-    font-style: italic;
-    margin-bottom: 15px;
-  }
-
-  .quote-section .author {
-    font-size: 13px;
-    color: #a0446a;
-    letter-spacing: 3px;
-    text-transform: uppercase;
     font-weight: 600;
+    transition: 0.3s;
   }
+  .card button:hover { background: #d4a5a5; transform: scale(1.05); }
 
-  /* ============ ABOUT ============ */
-  .about-content {
-    max-width: 800px;
-    margin: 0 auto;
+  /* About */
+  .about {
+    background: white;
+    padding: 80px 40px;
     text-align: center;
-    font-size: 16px;
-    color: #a0446a;
+  }
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 17px;
+    color: #555;
     line-height: 1.9;
   }
+  .about-content p { margin-bottom: 18px; }
 
-  /* ============ FOOTER ============ */
-  .footer {
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
-    padding: 50px 20px 25px;
+  /* Why Us */
+  .why-us {
+    padding: 80px 40px;
+    background: #fff8f3;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .feature {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 15px;
     text-align: center;
-    position: relative;
-    margin-top: 60px;
+    box-shadow: 0 4px 15px rgba(183,110,121,0.1);
+    transition: 0.3s;
   }
+  .feature:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(183,110,121,0.25); }
+  .feature .icon { font-size: 45px; margin-bottom: 15px; }
+  .feature h3 { color: #b76e79; margin-bottom: 10px; font-size: 20px; }
+  .feature p { color: #666; font-size: 15px; }
 
-  .footer h3 {
-    font-size: 32px;
-    font-weight: 900;
-    letter-spacing: 10px;
-    margin-bottom: 8px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* Reviews */
+  .reviews {
+    background: white;
+    padding: 80px 40px;
   }
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .review {
+    background: #fff8f3;
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid #b76e79;
+    transition: 0.3s;
+  }
+  .review:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(183,110,121,0.2); }
+  .stars { color: #f5b301; font-size: 20px; margin-bottom: 12px; }
+  .review p { color: #555; font-style: italic; margin-bottom: 15px; }
+  .review .name { font-weight: bold; color: #b76e79; }
 
-  .footer .socials {
+  /* FAQ */
+  .faq {
+    padding: 80px 40px;
+    background: #fff8f3;
+  }
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: white;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(183,110,121,0.12);
+  }
+  .faq-q {
+    padding: 20px 25px;
+    font-weight: bold;
+    color: #b76e79;
+    cursor: pointer;
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 25px 0;
-    flex-wrap: wrap;
-  }
-
-  .footer .socials a {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
+    justify-content: space-between;
     align-items: center;
+    font-size: 17px;
+    transition: 0.3s;
+  }
+  .faq-q:hover { background: #ffe4e1; }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 25px;
+    color: #555;
+    transition: 0.4s ease;
+  }
+  .faq-item.active .faq-a { max-height: 300px; padding: 0 25px 20px; }
+  .faq-item.active .faq-q { background: #ffe4e1; }
+
+  /* Newsletter */
+  .newsletter {
+    background: linear-gradient(135deg, #d4a5a5, #b76e79);
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+  }
+  .newsletter h2 { font-size: 32px; margin-bottom: 15px; }
+  .newsletter p { font-size: 17px; margin-bottom: 25px; }
+  .newsletter form {
+    display: flex;
     justify-content: center;
-    font-size: 20px;
-    text-decoration: none;
-    color: #fff;
-    transition: all 0.3s;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 550px;
+    margin: 0 auto;
   }
-
-  .footer .socials a:hover {
-    background: #fff;
-    color: #ff1493;
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  }
-
-  .footer .mys-dev-footer {
-    display: inline-block;
-    padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+  .newsletter input {
+    padding: 14px 20px;
+    border: none;
     border-radius: 30px;
-    font-size: 11px;
-    letter-spacing: 4px;
-    font-weight: 800;
-    margin-top: 15px;
-    text-transform: uppercase;
+    font-size: 15px;
+    flex: 1;
+    min-width: 220px;
+    outline: none;
   }
-
-  .footer p {
-    font-size: 12px;
-    opacity: 0.9;
-    letter-spacing: 1px;
-    margin-top: 15px;
+  .newsletter button {
+    background: #3a2a2d;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
   }
+  .newsletter button:hover { background: #1a1013; transform: scale(1.05); }
 
-  /* ============ FLOATING HEART ============ */
-  .floating-heart {
-    position: fixed;
-    bottom: -50px;
-    font-size: 30px;
-    pointer-events: none;
-    z-index: 9999;
-    animation: riseUp 4s ease-out forwards;
+  /* Contact */
+  .contact {
+    background: white;
+    text-align: center;
+    padding: 80px 40px;
   }
-
-  @keyframes riseUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+  .contact h2 { color: #b76e79; font-size: 38px; margin-bottom: 15px; }
+  .contact-sub { color: #777; font-size: 17px; margin-bottom: 40px; }
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
   }
+  .contact-card {
+    background: #fff8f3;
+    padding: 35px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(183,110,121,0.12);
+    transition: 0.3s;
+  }
+  .contact-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(183,110,121,0.25); }
+  .contact-card .icon { font-size: 40px; margin-bottom: 15px; }
+  .contact-card h3 { color: #b76e79; margin-bottom: 10px; font-size: 19px; }
+  .contact-card a {
+    color: #555;
+    text-decoration: none;
+    font-size: 15px;
+    word-break: break-word;
+    transition: 0.3s;
+  }
+  .contact-card a:hover { color: #b76e79; }
 
-  /* ============ BACK TO TOP ============ */
-  .back-top {
+  /* WhatsApp Float */
+  .whatsapp-float {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    width: 55px;
-    height: 55px;
+    background: #25D366;
+    color: white;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
-    color: #fff;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
-    transition: 0.3s;
-    z-index: 998;
-    opacity: 0;
-    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 30px;
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(37,211,102,0.5);
+    z-index: 200;
+    transition: 0.3s;
+  }
+  .whatsapp-float:hover { transform: scale(1.15); }
+
+  /* Footer */
+  footer {
+    background: #3a2a2d;
+    color: #ccc;
+    padding: 60px 40px 20px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+  }
+  .footer-col h3 { color: #ffe4e1; margin-bottom: 18px; font-size: 19px; }
+  .footer-col p, .footer-col a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 10px;
+    transition: 0.3s;
+  }
+  .footer-col a:hover { color: #ffe4e1; padding-left: 5px; }
+  .footer-bottom {
+    text-align: center;
+    border-top: 1px solid #555;
+    padding-top: 20px;
+    font-size: 14px;
+    color: #999;
   }
 
-  .back-top.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .back-top:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
-  }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 900px) {
-    .pinku-title { font-size: 90px; letter-spacing: 10px; }
-    .pinku-title .heart-deco { font-size: 38px; }
-    .pinku-title .heart-deco.left { left: -60px; }
-    .pinku-title .heart-deco.right { right: -60px; }
-  }
-
-  @media (max-width: 600px) {
-    .navbar { padding: 10px 15px; }
-    .nav-logo { font-size: 16px; letter-spacing: 3px; }
-    .nav-item { padding: 6px 12px; font-size: 11px; }
-
-    .pinku-title { font-size: 62px; letter-spacing: 6px; }
-    .pinku-title .heart-deco { font-size: 28px; }
-    .pinku-title .heart-deco.left { left: -42px; }
-    .pinku-title .heart-deco.right { right: -42px; }
-
-    .mys-dev { font-size: 11px; letter-spacing: 4px; padding: 8px 20px; gap: 6px; }
-    .clock-box { padding: 11px 20px; font-size: 15px; }
-
-    .section { padding: 45px 15px; }
-    .section-title h2 { font-size: 26px; }
-    .section-title p { font-size: 13px; }
-
-    .btn-pink, .btn-outline { padding: 13px 28px; font-size: 12px; }
-
-    .quote-section .quote { font-size: 18px; }
-    .gallery-item { font-size: 60px; }
-
-    .music-album { width: 130px; height: 130px; font-size: 55px; }
-    .contact-form { padding: 28px 22px; }
-
-    .footer h3 { font-size: 22px; letter-spacing: 6px; }
-    .counter-box .num { font-size: 28px; }
-  }
-
-  @media (max-width: 400px) {
-    .pinku-title { font-size: 48px; letter-spacing: 4px; }
-    .pinku-title .heart-deco { font-size: 22px; }
-    .pinku-title .heart-deco.left { left: -32px; }
-    .pinku-title .heart-deco.right { right: -32px; }
+  /* Responsive */
+  @media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    nav a { margin-left: 12px; font-size: 14px; }
+    .hero h1 { font-size: 34px; }
+    .hero p { font-size: 17px; }
+    .section-title { font-size: 28px; }
+    .products { padding: 0 20px 40px; }
+    .about, .why-us, .reviews, .faq, .contact { padding: 60px 20px; }
+    .logo { font-size: 22px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Background blobs -->
-<div class="bg-blobs">
-  <div class="blob"></div>
-  <div class="blob"></div>
-  <div class="blob"></div>
-</div>
+<!-- HEADER -->
+<header>
+  <div class="logo">Fati <span>Bracelets</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <button class="cart-btn" onclick="viewCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+  </nav>
+</header>
 
-<!-- Floating hearts -->
-<div class="bg-hearts" id="bgHearts"></div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1>Handmade Bracelets with Love 💕</h1>
+  <p>Unique designs • Premium quality • Perfect gift for every occasion</p>
+  <a href="#shop" class="btn">Shop Now</a>
+  <a href="https://wa.me/923703172066" class="btn btn-outline">Order on WhatsApp</a>
+</section>
 
-<!-- ============ NAVBAR ============ -->
-<div class="navbar">
-  <div class="nav-logo">💗 PINKU</div>
-  <div class="nav-links">
-    <a href="#home" class="nav-item active">🏠 Home</a>
-    <a href="#features" class="nav-item">✨ Features</a>
-    <a href="#gallery" class="nav-item">🌸 Gallery</a>
-    <a href="#music" class="nav-item">🎵 Music</a>
-    <a href="#contact" class="nav-item">📩 Contact</a>
-  </div>
-</div>
+<!-- PRODUCTS -->
+<h2 class="section-title" id="shop">Our Collection</h2>
+<p class="section-subtitle">Handcrafted bracelets made with premium beads and love</p>
+<div class="products" id="productList"></div>
 
-<!-- ============ HERO ============ -->
-<div class="hero" id="home">
-  <h1 class="pinku-title">
-    <span class="heart-deco left">💗</span>
-    PINKU
-    <span class="heart-deco right">💗</span>
-  </h1>
-
-  <div class="mys-dev">
-    <span class="star">✨</span>
-    MYS DEVELOPER
-    <span class="star">✨</span>
-  </div>
-
-  <div class="clock-box">
-    <span class="icon">🕐</span>
-    <span class="time" id="clockTime">--:--:--</span>
-    <span class="date" id="clockDate">--/--/----</span>
-  </div>
-
-  <div class="btn-group">
-    <a href="#features" class="btn-pink">💗 Explore</a>
-    <a href="#contact" class="btn-outline">✨ Contact</a>
-  </div>
-</div>
-
-<!-- ============ FEATURES ============ -->
-<div class="section" id="features">
-  <div class="section-title">
-    <h2>✨ Features</h2>
-    <p>ہر چیز جو آپ کو پیاری لگے</p>
-    <div class="deco">💗 💗 💗</div>
-  </div>
-
-  <div class="cards-grid">
-    <div class="pink-card">
-      <div class="card-icon">🌸</div>
-      <h3>Beautiful Design</h3>
-      <p>نرم گلابی رنگوں اور خوبصورت ڈیزائن کے ساتھ ہر صفحہ بنایا گیا ہے۔</p>
-    </div>
-    <div class="pink-card">
-      <div class="card-icon">💖</div>
-      <h3>Cute Vibes</h3>
-      <p>پیارے ایموجیز، نرم اینیمیشنز اور مثبت ماحول۔</p>
-    </div>
-    <div class="pink-card">
-      <div class="card-icon">✨</div>
-      <h3>Magical Effects</h3>
-      <p>دلکش effects اور شاندار transitions ہر جگہ۔</p>
-    </div>
-    <div class="pink-card">
-      <div class="card-icon">📱</div>
-      <h3>Mobile Friendly</h3>
-      <p>موبائل، ٹیبلٹ یا لیپ ٹاپ — ہر ڈیوائس پر بہترین۔</p>
-    </div>
-    <div class="pink-card">
-      <div class="card-icon">⚡</div>
-      <h3>Fast & Smooth</h3>
-      <p>بہت تیز لوڈنگ اور smooth animations۔</p>
-    </div>
-    <div class="pink-card">
-      <div class="card-icon">💎</div>
-      <h3>Premium Quality</h3>
-      <p>ہر تفصیل پر دھیان دیا گیا — پروفیشنل لیول ڈیزائن۔</p>
-    </div>
-  </div>
-
-  <!-- Counters -->
-  <div class="counters">
-    <div class="counter-box">
-      <div class="num" data-count="10000">0</div>
-      <div class="lbl">Happy Users</div>
-    </div>
-    <div class="counter-box">
-      <div class="num" data-count="500">0</div>
-      <div class="lbl">Projects</div>
-    </div>
-    <div class="counter-box">
-      <div class="num" data-count="99">0</div>
-      <div class="lbl">% Satisfaction</div>
-    </div>
-    <div class="counter-box">
-      <div class="num" data-count="24">0</div>
-      <div class="lbl">Hour Support</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ QUOTE ============ -->
-<div class="quote-section">
-  <div class="quote">"زندگی میں ہر چیز پیاری نہیں ہوتی، لیکن PINKU ہر چیز کو پیارا بنا دیتا ہے۔"</div>
-  <div class="author">— MYS DEVELOPER 💗</div>
-</div>
-
-<!-- ============ GALLERY ============ -->
-<div class="section" id="gallery">
-  <div class="section-title">
-    <h2>🌸 Gallery</h2>
-    <p>خوبصورت پل — ہر ایک دل کو چھو لینے والا</p>
-    <div class="deco">💗 💗 💗</div>
-  </div>
-
-  <div class="gallery">
-    <div class="gallery-item">💗<div class="caption">Love</div></div>
-    <div class="gallery-item">🌸<div class="caption">Blossom</div></div>
-    <div class="gallery-item">💕<div class="caption">Hearts</div></div>
-    <div class="gallery-item">🦋<div class="caption">Butterfly</div></div>
-    <div class="gallery-item">🌺<div class="caption">Flower</div></div>
-    <div class="gallery-item">✨<div class="caption">Sparkle</div></div>
-    <div class="gallery-item">💝<div class="caption">Gift</div></div>
-    <div class="gallery-item">🌟<div class="caption">Star</div></div>
-  </div>
-</div>
-
-<!-- ============ MUSIC PLAYER ============ -->
-<div class="section" id="music">
-  <div class="section-title">
-    <h2>🎵 Music Player</h2>
-    <p>پیاری دھنیں — دل کو سکون دیں</p>
-    <div class="deco">💗 💗 💗</div>
-  </div>
-
-  <div class="music-player">
-    <div class="music-album" id="musicAlbum">💗</div>
-    <h3 id="musicTitle">Pink Melody</h3>
-    <p id="musicArtist">MYS DEVELOPER</p>
-
-    <div class="music-controls">
-      <button class="music-btn" onclick="prevTrack()">⏮</button>
-      <button class="music-btn big" id="playBtn" onclick="togglePlay()">▶</button>
-      <button class="music-btn" onclick="nextTrack()">⏭</button>
-    </div>
-
-    <div class="music-progress">
-      <div class="bar" id="musicBar"></div>
-    </div>
-    <p style="margin-top:15px;font-size:11px;letter-spacing:2px;color:#a0446a;">Demo Player — Real audio کچھ دیر بعد</p>
-  </div>
-</div>
-
-<!-- ============ ABOUT ============ -->
-<div class="section" id="about">
-  <div class="section-title">
-    <h2>💗 About PINKU</h2>
-    <p>ہماری کہانی</p>
-    <div class="deco">💗 💗 💗</div>
-  </div>
-
+<!-- ABOUT -->
+<section class="about" id="about">
+  <h2 class="section-title">About Fati Bracelets</h2>
+  <p class="section-subtitle">Our Story</p>
   <div class="about-content">
-    <p>
-      PINKU ایک خوبصورت گلابی دنیا ہے جہاں ہر چیز پیاری، نرم اور دلکش ہے۔ یہ ویب سائٹ
-      <strong style="color:#ff1493;">MYS DEVELOPER</strong> نے محبت اور محنت کے ساتھ بنائی ہے۔
-      ہمارا مقصد انٹرنیٹ پر ایک مثبت، خوشگوار اور خوبصورت جگہ بنانا ہے جہاں ہر صارف
-      خود کو خوش محسوس کرے۔
-    </p>
+    <p>Welcome to <strong>Fati Bracelets</strong> — a small handmade jewelry brand based in the heart of <strong>Karachi, Pakistan</strong>. What started as a passion for crafting beautiful accessories has grown into a loved brand trusted by hundreds of happy customers.</p>
+    <p>Every bracelet is carefully handcrafted using premium quality beads, threads, and charms. We believe that jewelry is not just an accessory — it's a memory, a feeling, and a piece of art that tells your story.</p>
+    <p>Whether you're looking for a gift for a loved one, a matching bracelet for your best friend, or something special just for yourself — we've got something perfect for you. 💖</p>
+    <p><strong>Thank you for supporting our small business!</strong></p>
   </div>
-</div>
+</section>
 
-<!-- ============ CONTACT ============ -->
-<div class="section" id="contact">
-  <div class="section-title">
-    <h2>📩 Contact Us</h2>
-    <p>ہمیں پیغام بھیجیں — ہم جواب دیں گے</p>
-    <div class="deco">💗 💗 💗</div>
+<!-- WHY US -->
+<section class="why-us">
+  <h2 class="section-title">Why Choose Us?</h2>
+  <p class="section-subtitle">What makes Fati Bracelets special</p>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">💎</div>
+      <h3>Premium Quality</h3>
+      <p>We use only the finest beads, threads, and materials that last for years.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">✋</div>
+      <h3>100% Handmade</h3>
+      <p>Every piece is crafted by hand with love and attention to detail.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🚚</div>
+      <h3>Fast Delivery</h3>
+      <p>Quick delivery all over Pakistan. Cash on delivery available.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🎁</div>
+      <h3>Gift Wrapping</h3>
+      <p>Free beautiful gift packaging on every order — perfect for gifting!</p>
+    </div>
+    <div class="feature">
+      <div class="icon">💰</div>
+      <h3>Affordable Prices</h3>
+      <p>Premium quality at prices everyone can afford.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Reach us anytime on WhatsApp for orders and questions.</p>
+    </div>
   </div>
+</section>
 
-  <form class="contact-form" onsubmit="submitContact(event)">
-    <input type="text" id="contactName" placeholder="👤 آپ کا نام" required>
-    <input type="email" id="contactEmail" placeholder="📧 آپ کا Email" required>
-    <textarea id="contactMsg" placeholder="💬 اپنا پیغام لکھیں..." required></textarea>
-    <button type="submit">💗 Send Message</button>
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <h2 class="section-title">Customer Reviews</h2>
+  <p class="section-subtitle">What our happy customers say</p>
+  <div class="review-grid">
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"MashAllah bohat pyari bracelets hain! Quality bhi bohat achi hai. Meri behen ko gift ki, wo bohat khush hui."</p>
+      <div class="name">— Ayesha K., Karachi</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"Best quality at this price. Delivery bhi time pe mili. Highly recommended for gifts!"</p>
+      <div class="name">— Fatima R., Lahore</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"Maine apni friend ke liye order kiya tha. Packaging bohat achi thi aur bracelet exactly waisi hi thi jaisi picture me thi."</p>
+      <div class="name">— Hira S., Islamabad</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"Amazing customer service! WhatsApp pe bohat achi tarah guide kiya. Definitely order karungi dobara."</p>
+      <div class="name">— Maryam A., Rawalpindi</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"Bracelet ki finishing bohat clean hai. Meri wife ko bohat pasand aya. Thank you Fati Bracelets!"</p>
+      <div class="name">— Ahmed M., Karachi</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>"Price ke hisaab se quality excellent hai. Mere sab friends ne poocha kahan se liya. Full paisa wasool!"</p>
+      <div class="name">— Sana T., Multan</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <p class="section-subtitle">Aap ke sawalon ke jawab</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I place an order? <span>+</span></div>
+      <div class="faq-a"><p>Simply WhatsApp us at <strong>0370 3172066</strong> with the bracelet name and your address. We'll confirm your order within minutes!</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you deliver all over Pakistan? <span>+</span></div>
+      <div class="faq-a"><p>Yes! We deliver all across Pakistan. Delivery time is 2-4 working days depending on your city.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is Cash on Delivery available? <span>+</span></div>
+      <div class="faq-a"><p>Yes, Cash on Delivery (COD) is available all over Pakistan. You can also pay via EasyPaisa or JazzCash for faster processing.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I customize a bracelet? <span>+</span></div>
+      <div class="faq-a"><p>Absolutely! We love custom orders. Just message us on WhatsApp with your idea, and we'll craft it specially for you.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer gift wrapping? <span>+</span></div>
+      <div class="faq-a"><p>Yes! Every order comes with free beautiful gift wrapping. Just mention it in your WhatsApp message.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if I don't like the product? <span>+</span></div>
+      <div class="faq-a"><p>Customer satisfaction is our top priority. If you face any issue, contact us on WhatsApp within 3 days of delivery and we'll resolve it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2>Get Special Offers 💌</h2>
+  <p>Subscribe to receive new collection updates and exclusive discounts</p>
+  <form onsubmit="subscribe(event)">
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
   </form>
-</div>
+</section>
 
-<!-- ============ FOOTER ============ -->
-<div class="footer">
-  <h3>PINKU</h3>
-
-  <div class="socials">
-    <a href="#" title="Facebook">📘</a>
-    <a href="#" title="Instagram">📷</a>
-    <a href="#" title="Twitter">🐦</a>
-    <a href="#" title="YouTube">▶️</a>
-    <a href="#" title="TikTok">🎵</a>
-    <a href="#" title="WhatsApp">💬</a>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>Get in Touch</h2>
+  <p class="contact-sub">Hum se rabta karein — we'd love to hear from you!</p>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <div class="icon">📱</div>
+      <h3>WhatsApp</h3>
+      <a href="https://wa.me/923703172066" target="_blank">0370 3172066</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📧</div>
+      <h3>Email</h3>
+      <a href="mailto:shehzadyji267@gmail.com">shehzadyji267@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📍</div>
+      <h3>Address</h3>
+      <a href="https://maps.google.com/?q=Karachi,Pakistan" target="_blank">Karachi, Pakistan</a>
+    </div>
   </div>
+</section>
 
-  <div class="mys-dev-footer">
-    ✨ MYS DEVELOPER ✨
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Fati Bracelets</h3>
+      <p>Handmade bracelets crafted with love in Karachi, Pakistan. Premium quality at affordable prices.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <a href="https://wa.me/923703172066">📱 0370 3172066</a>
+      <a href="mailto:shehzadyji267@gmail.com">📧 shehzadyji267@gmail.com</a>
+      <a href="https://maps.google.com/?q=Karachi,Pakistan">📍 Karachi, Pakistan</a>
+    </div>
+    <div class="footer-col">
+      <h3>Follow Us</h3>
+      <a href="#">📷 Instagram</a>
+      <a href="#">📘 Facebook</a>
+      <a href="https://wa.me/923703172066">💬 WhatsApp</a>
+      <a href="#">🎵 TikTok</a>
+    </div>
   </div>
+  <div class="footer-bottom">
+    © 2025 Fati Bracelets. All rights reserved. Made with 💕 in Karachi
+  </div>
+</footer>
 
-  <p>© 2026 PINKU — All Rights Reserved 💗</p>
-</div>
-
-<!-- Back to top -->
-<button class="back-top" id="backTop" onclick="scrollToTop()">↑</button>
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/923703172066" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
 <script>
-// ==========================================
-// FLOATING HEARTS BACKGROUND
-// ==========================================
-function createBgHearts() {
-  const container = document.getElementById('bgHearts');
-  const hearts = ['💗','🌸','💕','🦋','💖','✨','💝','🌺'];
-  for (let i = 0; i < 25; i++) {
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    h.style.left = Math.random() * 100 + '%';
-    h.style.fontSize = (14 + Math.random() * 20) + 'px';
-    h.style.animationDuration = (12 + Math.random() * 15) + 's';
-    h.style.animationDelay = (-Math.random() * 20) + 's';
-    container.appendChild(h);
-  }
-}
+  const products = [
+    { name: "Rose Gold Beads", price: 850, img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500" },
+    { name: "Pearl Elegance", price: 1200, img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" },
+    { name: "Friendship Charm", price: 650, img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" },
+    { name: "Golden Twist", price: 999, img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=500" },
+    { name: "Boho Style", price: 750, img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=500" },
+    { name: "Crystal Dream", price: 1450, img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500" },
+    { name: "Pink Heart Charm", price: 899, img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500" },
+    { name: "Silver Minimalist", price: 799, img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" }
+  ];
 
-// ==========================================
-// SHOWER HEARTS
-// ==========================================
-function showerHearts(e) {
-  if (e) e.preventDefault();
-  const hearts = ['💗','💖','💕','💝','🌸','✨','🦋'];
-  for (let i = 0; i < 25; i++) {
-    setTimeout(() => {
-      const h = document.createElement('div');
-      h.className = 'floating-heart';
-      h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-      h.style.left = Math.random() * 100 + 'vw';
-      h.style.fontSize = (20 + Math.random() * 30) + 'px';
-      h.style.animationDuration = (3 + Math.random() * 2) + 's';
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 5000);
-    }, i * 60);
-  }
-}
+  let cart = 0;
+  const list = document.getElementById('productList');
 
-// ==========================================
-// LIVE CLOCK
-// ==========================================
-function updateClock() {
-  const now = new Date();
-  const time = now.toLocaleTimeString('en-US', { hour12: false });
-  const date = now.toLocaleDateString('en-GB');
-  const timeEl = document.getElementById('clockTime');
-  const dateEl = document.getElementById('clockDate');
-  if (timeEl) timeEl.textContent = time;
-  if (dateEl) dateEl.textContent = date;
-}
-
-// ==========================================
-// COUNTERS
-// ==========================================
-function animateCounters() {
-  document.querySelectorAll('.counter-box .num').forEach(counter => {
-    const target = parseInt(counter.dataset.count);
-    const duration = 2000;
-    const step = target / (duration / 16);
-    let current = 0;
-    const update = () => {
-      current += step;
-      if (current >= target) {
-        if (target >= 1000) counter.textContent = (target/1000) + 'K+';
-        else if (target === 99) counter.textContent = target + '%';
-        else counter.textContent = target + '+';
-      } else {
-        counter.textContent = Math.floor(current) + (target >= 1000 ? '' : '');
-        requestAnimationFrame(update);
-      }
-    };
-    update();
-  });
-}
-
-// ==========================================
-// MUSIC PLAYER (Demo - No real audio)
-// ==========================================
-const tracks = [
-  { title: 'Pink Melody', artist: 'MYS DEVELOPER', emoji: '💗' },
-  { title: 'Sweet Dreams', artist: 'PINKU Team', emoji: '🌸' },
-  { title: 'Love Vibes', artist: 'MYS DEVELOPER', emoji: '💕' },
-  { title: 'Rose Garden', artist: 'PINKU Music', emoji: '🌺' },
-];
-let currentTrack = 0;
-let isPlaying = false;
-let musicProgress = 0;
-let musicInterval = null;
-
-function updateTrackDisplay() {
-  const t = tracks[currentTrack];
-  document.getElementById('musicAlbum').textContent = t.emoji;
-  document.getElementById('musicTitle').textContent = t.title;
-  document.getElementById('musicArtist').textContent = t.artist;
-}
-
-function togglePlay() {
-  isPlaying = !isPlaying;
-  const btn = document.getElementById('playBtn');
-  const album = document.getElementById('musicAlbum');
-  btn.textContent = isPlaying ? '⏸' : '▶';
-  album.classList.toggle('playing', isPlaying);
-
-  if (isPlaying) {
-    musicInterval = setInterval(() => {
-      musicProgress += 0.5;
-      if (musicProgress >= 100) {
-        musicProgress = 0;
-        nextTrack();
-      }
-      document.getElementById('musicBar').style.width = musicProgress + '%';
-    }, 100);
-  } else {
-    clearInterval(musicInterval);
-  }
-}
-
-function nextTrack() {
-  currentTrack = (currentTrack + 1) % tracks.length;
-  musicProgress = 0;
-  document.getElementById('musicBar').style.width = '0%';
-  updateTrackDisplay();
-}
-
-function prevTrack() {
-  currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-  musicProgress = 0;
-  document.getElementById('musicBar').style.width = '0%';
-  updateTrackDisplay();
-}
-
-// ==========================================
-// CONTACT FORM
-// ==========================================
-function submitContact(e) {
-  e.preventDefault();
-  const name = document.getElementById('contactName').value.trim();
-  const email = document.getElementById('contactEmail').value.trim();
-  const msg = document.getElementById('contactMsg').value.trim();
-
-  if (!name || !email || !msg) return;
-
-  // Success message
-  const btn = e.target.querySelector('button');
-  const original = btn.textContent;
-  btn.textContent = '💗 Message Sent!';
-  btn.style.background = 'linear-gradient(135deg, #00cc6a, #00a854)';
-
-  showerHearts({ preventDefault: () => {} });
-
-  setTimeout(() => {
-    btn.textContent = original;
-    btn.style.background = '';
-    e.target.reset();
-  }, 2500);
-}
-
-// ==========================================
-// BACK TO TOP
-// ==========================================
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
-  if (window.scrollY > 400) btn.classList.add('show');
-  else btn.classList.remove('show');
-});
-
-// ==========================================
-// NAV ACTIVE
-// ==========================================
-function setupNav() {
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      navItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-    });
+  products.forEach(p => {
+    list.innerHTML += `
+      <div class="card">
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <div class="price">Rs ${p.price}</div>
+        <button onclick="addToCart('${p.name}')">Add to Cart</button>
+      </div>
+    `;
   });
 
-  // Auto-update on scroll
-  const sections = document.querySelectorAll('[id]');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      const top = s.offsetTop - 150;
-      if (window.scrollY >= top) current = s.id;
-    });
-    navItems.forEach(item => {
-      item.classList.toggle('active', item.getAttribute('href') === '#' + current);
-    });
-  });
-}
+  function addToCart(name) {
+    cart++;
+    document.getElementById('cartCount').textContent = cart;
+    alert(name + " added to cart! 🛒\n\nCheckout ke liye WhatsApp karein: 0370 3172066");
+  }
 
-// ==========================================
-// COUNTERS OBSERVER
-// ==========================================
-function setupObserver() {
-  const counters = document.querySelector('.counters');
-  if (!counters) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.disconnect();
+  function viewCart() {
+    if (cart === 0) {
+      alert("Aap ka cart khali hai. Shop se bracelets add karein! 🛍️");
+    } else {
+      const msg = encodeURIComponent(`Hi Fati Bracelets! I want to order ${cart} bracelet(s). Please guide me.`);
+      if (confirm(`You have ${cart} item(s) in cart.\n\nClick OK to checkout on WhatsApp.`)) {
+        window.open(`https://wa.me/923703172066?text=${msg}`, '_blank');
       }
-    });
-  }, { threshold: 0.3 });
-  observer.observe(counters);
-}
-
-// ==========================================
-// CLICK ANYWHERE = HEART
-// ==========================================
-document.addEventListener('click', (e) => {
-  if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  const hearts = ['💗','💕','✨'];
-  const h = document.createElement('div');
-  h.className = 'floating-heart';
-  h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-  h.style.left = e.clientX + 'px';
-  h.style.top = (window.innerHeight - e.clientY) + 'px';
-  h.style.bottom = 'auto';
-  h.style.fontSize = '28px';
-  h.style.animationDuration = '2.5s';
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 3000);
-});
-
-// ==========================================
-// PAGE LOAD
-// ==========================================
-function pageLoad() {
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity 0.5s';
-  setTimeout(() => { document.body.style.opacity = '1'; }, 50);
-}
-
-// ==========================================
-// INIT
-// ==========================================
-window.addEventListener('load', () => {
-  pageLoad();
-  createBgHearts();
-  setupNav();
-  setupObserver();
-  updateClock();
-  setInterval(updateClock, 1000);
-  updateTrackDisplay();
-
-  // Welcome hearts
-  setTimeout(() => {
-    if (document.visibilityState === 'visible') {
-      showerHearts({ preventDefault: () => {} });
     }
-  }, 800);
-});
+  }
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+    if (!wasActive) item.classList.add('active');
+  }
+
+  function subscribe(e) {
+    e.preventDefault();
+    alert("Shukriya! Aap subscribe ho gaye hain. 💌\n\nSpecial offers aap ke email pe bheje jayenge.");
+    e.target.reset();
+  }
 </script>
 
 </body>
