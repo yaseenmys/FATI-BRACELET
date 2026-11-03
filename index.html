@@ -6,19 +6,17 @@
 <title>MYS ENTERPRISES - Background Remover</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ================= RESET & BASE ================= */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Inter', sans-serif;
     background-color: #ffffff;
     color: #333;
     min-height: 100vh;
-    overflow-x: hidden;
   }
   a { text-decoration: none; color: inherit; }
   button { font-family: 'Inter', sans-serif; }
 
-  /* ================= NAVBAR ================= */
+  /* NAVBAR */
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -36,16 +34,11 @@
     gap: 10px;
     font-size: 22px;
     font-weight: 800;
-    color: #2d2d2d;
+    color: #1e6fff;
     letter-spacing: -0.5px;
   }
   .logo svg { width: 28px; height: 28px; }
-  .logo span { color: #1e6fff; } /* Highlight MYS */
-  
-  .nav-links {
-    display: flex;
-    gap: 32px;
-  }
+  .nav-links { display: flex; gap: 32px; }
   .nav-links a {
     font-size: 15px;
     font-weight: 500;
@@ -53,11 +46,7 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: #000; }
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+  .nav-actions { display: flex; align-items: center; gap: 20px; }
   .login { font-size: 15px; font-weight: 500; color: #333; }
   .signup-btn {
     background: #f0f0f0;
@@ -66,11 +55,9 @@
     font-weight: 600;
     font-size: 14px;
     color: #333;
-    transition: 0.2s;
   }
-  .signup-btn:hover { background: #e4e4e4; }
 
-  /* ================= HERO SECTION ================= */
+  /* HERO SECTION */
   .hero {
     display: flex;
     justify-content: space-between;
@@ -107,7 +94,7 @@
     font-weight: 600;
   }
 
-  /* ================= UPLOAD CARD ================= */
+  /* UPLOAD CARD */
   .upload-card {
     background: #ffffff;
     width: 460px;
@@ -117,6 +104,12 @@
     border: 1px solid #f0f0f0;
     text-align: center;
     flex-shrink: 0;
+    transition: 0.3s;
+  }
+  .upload-card.dragover {
+    border-color: #1e6fff;
+    background: #f5f9ff;
+    transform: scale(1.02);
   }
   .btn-blue {
     background: #1e6fff;
@@ -143,24 +136,9 @@
     line-height: 1.5;
   }
   .drop-text small { color: #999; font-size: 13px; display: block; margin-top: 2px; }
+  .drop-text a { color: #1e6fff; text-decoration: underline; cursor: pointer; }
 
-  /* Sample thumbnails */
-  .samples { margin-top: 44px; text-align: left; }
-  .samples p { font-size: 13px; color: #777; margin-bottom: 12px; font-weight: 500; }
-  .sample-imgs { display: flex; gap: 10px; }
-  .s-box {
-    width: 58px; height: 58px;
-    border-radius: 12px;
-    background-color: #eee;
-    cursor: pointer;
-    transition: 0.2s;
-    background-size: cover;
-    background-position: center;
-    border: 1px solid #eee;
-  }
-  .s-box:hover { transform: scale(1.06); border-color: #1e6fff; }
-
-  /* ================= EDITOR SECTION ================= */
+  /* EDITOR SECTION */
   .editor-section {
     display: none;
     max-width: 1150px;
@@ -186,74 +164,31 @@
     position: relative;
   }
   canvas { max-width: 100%; max-height: 600px; display: block; }
-  
   .sidebar {
     padding: 30px 26px;
     border-left: 1px solid #f0f0f0;
     background: #fdfdfd;
   }
-  .sidebar h3 {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: #2d2d2d;
-  }
+  .sidebar h3 { font-size: 17px; font-weight: 700; margin-bottom: 24px; color: #2d2d2d; }
   .control-group { margin-bottom: 26px; }
-  .control-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 10px;
-  }
-  input[type="range"] {
-    width: 100%;
-    accent-color: #1e6fff;
-    height: 6px;
-    cursor: pointer;
-  }
+  .control-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 10px; }
+  input[type="range"] { width: 100%; accent-color: #1e6fff; height: 6px; cursor: pointer; }
   .color-pick { display: flex; gap: 10px; align-items: center; }
   input[type="color"] {
-    width: 48px; height: 42px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    cursor: pointer;
-    padding: 3px;
-    background: #fff;
+    width: 48px; height: 42px; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; padding: 3px; background: #fff;
   }
   .btn-outline {
-    background: #fff;
-    border: 1.5px solid #e0e0e0;
-    padding: 10px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 13px;
-    color: #555;
-    transition: 0.2s;
-    flex: 1;
+    background: #fff; border: 1.5px solid #e0e0e0; padding: 10px 16px; border-radius: 10px;
+    cursor: pointer; font-weight: 600; font-size: 13px; color: #555; transition: 0.2s; flex: 1;
   }
   .btn-outline:hover { border-color: #bbb; background: #f9f9f9; }
-  
   .action-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
   .action-btns .btn-blue { max-width: 100%; padding: 14px; font-size: 15px; }
 
-  /* Drag over effect */
-  .upload-card.dragover {
-    border-color: #1e6fff;
-    background: #f5f9ff;
-    transform: scale(1.02);
-  }
-
-  /* ================= RESPONSIVE ================= */
+  /* RESPONSIVE */
   @media (max-width: 960px) {
     .nav-links { display: none; }
-    .hero {
-      flex-direction: column;
-      text-align: center;
-      margin: 40px auto;
-      padding: 0 24px;
-    }
+    .hero { flex-direction: column; text-align: center; margin: 40px auto; padding: 0 24px; }
     .hero-text h1 { font-size: 44px; letter-spacing: -1px; }
     .hero-text p { justify-content: center; font-size: 17px; }
     .upload-card { width: 100%; max-width: 460px; }
@@ -265,7 +200,7 @@
 </head>
 <body>
 
-  <!-- ========= NAVBAR ========= -->
+  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="logo">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -287,7 +222,7 @@
     </div>
   </nav>
 
-  <!-- ========= HERO / UPLOAD ========= -->
+  <!-- HERO SECTION -->
   <main class="hero" id="heroSection">
     <div class="hero-text">
       <h1>Remove Image<br>Background</h1>
@@ -302,33 +237,20 @@
       </button>
       
       <p class="drop-text">
-        or drop a file,
-        <small>paste image or URL</small>
+        or drop a file,<br>
+        <small>or press <a id="pasteTrigger">Ctrl + V</a> to paste</small>
       </p>
-
-      <div class="samples">
-        <p>No image? Try one of these:</p>
-        <div class="sample-imgs">
-          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop');"></div>
-          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop');"></div>
-          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&auto=format&fit=crop');"></div>
-          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop');"></div>
-        </div>
-      </div>
     </div>
   </main>
 
-  <!-- ========= EDITOR ========= -->
+  <!-- EDITOR SECTION -->
   <section class="editor-section" id="editorSection">
     <div class="editor-container">
-      
       <div class="canvas-area">
         <canvas id="canvas"></canvas>
       </div>
-
       <div class="sidebar">
         <h3>Edit Image</h3>
-        
         <div class="control-group">
           <label>Background Color</label>
           <div class="color-pick">
@@ -336,23 +258,19 @@
             <button class="btn-outline" id="pickBtn">Pick from Image</button>
           </div>
         </div>
-
         <div class="control-group">
           <label>Tolerance: <span id="tolVal">30</span></label>
           <input type="range" id="tolerance" min="1" max="150" value="30">
         </div>
-
         <div class="action-btns">
           <button class="btn-blue" id="downloadBtn">⬇️ Download PNG</button>
           <button class="btn-outline" id="resetBtn">Upload New Image</button>
         </div>
       </div>
-
     </div>
   </section>
 
 <script>
-  /* ================= ELEMENTS ================= */
   const navbar = document.getElementById('navbar');
   const heroSection = document.getElementById('heroSection');
   const editorSection = document.getElementById('editorSection');
@@ -372,10 +290,9 @@
   let picking = false;
   let debounceTimer = null;
 
-  /* ================= FAST FILE UPLOAD ================= */
+  /* ================= FILE UPLOAD ================= */
   fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
 
-  // Drag & Drop
   ['dragover', 'dragenter'].forEach(evt => {
     uploadBox.addEventListener(evt, e => { e.preventDefault(); uploadBox.classList.add('dragover'); });
   });
@@ -384,6 +301,18 @@
   });
   uploadBox.addEventListener('drop', e => {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  // PASTE FUNCTION (Ctrl + V)
+  document.addEventListener('paste', (e) => {
+    const items = e.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        const blob = items[i].getAsFile();
+        handleFile(blob);
+        break;
+      }
+    }
   });
 
   function handleFile(file) {
@@ -406,7 +335,7 @@
   }
 
   function setupCanvas() {
-    // Speed optimization: Max width 800px for fast processing
+    // Speed optimization: Max width 800px
     const maxW = 800; 
     let w = originalImage.width;
     let h = originalImage.height;
@@ -415,20 +344,17 @@
     canvas.width = w;
     canvas.height = h;
     ctx.drawImage(originalImage, 0, 0, w, h);
-    
-    // Original data ko cache karo
     originalData = ctx.getImageData(0, 0, w, h);
     removeBackground();
   }
 
-  /* ================= BACKGROUND REMOVAL (FAST) ================= */
-  // Slider mein debounce lagaya hai taake lag na kare
+  /* ================= BACKGROUND REMOVAL ================= */
   tolerance.addEventListener('input', () => {
     tolVal.textContent = tolerance.value;
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       if (originalData) removeBackground();
-    }, 50); // 50ms delay for smoothness
+    }, 50);
   });
 
   bgColor.addEventListener('input', () => {
@@ -445,8 +371,6 @@
 
   function removeBackground() {
     if (!originalData) return;
-    
-    // Fast copy using Uint8ClampedArray
     const imgData = new ImageData(
       new Uint8ClampedArray(originalData.data),
       originalData.width,
@@ -457,17 +381,14 @@
     const tol = parseInt(tolerance.value);
     const tolSq = tol * tol * 3;
 
-    // Fast loop
     for (let i = 0; i < data.length; i += 4) {
       const dr = data[i] - target.r;
       const dg = data[i + 1] - target.g;
       const db = data[i + 2] - target.b;
-      
       if ((dr * dr + dg * dg + db * db) <= tolSq) {
-        data[i + 3] = 0; // Transparent
+        data[i + 3] = 0;
       }
     }
-    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(imgData, 0, 0);
   }
