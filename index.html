@@ -3,655 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fati Bracelets - Handmade with Love | Karachi</title>
+<title>MYS ENTERPRISES - Background Remover</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-  html { scroll-behavior: smooth; }
-  body { background: #fff8f3; color: #333; line-height: 1.6; }
+  /* ================= RESET & BASE ================= */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: 'Inter', sans-serif; }
 
-  /* Header */
-  header {
-    background: linear-gradient(135deg, #d4a5a5, #b76e79);
-    color: white;
-    padding: 18px 40px;
+  /* ================= NAVBAR ================= */
+  .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 18px 48px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    flex-wrap: wrap;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
     gap: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #2d2d2d;
+    letter-spacing: -0.5px;
   }
-  .logo { font-size: 26px; font-weight: bold; letter-spacing: 1px; }
-  .logo span { color: #ffe4e1; }
-  nav { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    transition: 0.3s;
+  .logo svg { width: 28px; height: 28px; }
+  .logo span { color: #1e6fff; } /* Highlight MYS */
+  
+  .nav-links {
+    display: flex;
+    gap: 32px;
+  }
+  .nav-links a {
     font-size: 15px;
-  }
-  nav a:hover { color: #ffe4e1; }
-  .cart-btn {
-    background: #ffe4e1;
-    color: #b76e79;
-    padding: 8px 18px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    margin-left: 20px;
-    transition: 0.3s;
-  }
-  .cart-btn:hover { background: white; transform: scale(1.05); }
-  .cart-count {
-    background: #b76e79;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 50%;
-    margin-left: 5px;
-    font-size: 13px;
-  }
-
-  /* Hero */
-  .hero {
-    background: linear-gradient(rgba(183,110,121,0.75), rgba(212,165,165,0.75)),
-                url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600') center/cover;
-    color: white;
-    text-align: center;
-    padding: 120px 20px;
-  }
-  .hero h1 { font-size: 52px; margin-bottom: 15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); }
-  .hero p { font-size: 21px; margin-bottom: 30px; }
-  .btn {
-    background: #fff;
-    color: #b76e79;
-    padding: 14px 38px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.3s;
-    margin: 5px;
-  }
-  .btn:hover { background: #ffe4e1; transform: translateY(-3px); }
-  .btn-outline {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-  }
-  .btn-outline:hover { background: white; color: #b76e79; }
-
-  /* Section titles */
-  .section-title {
-    text-align: center;
-    font-size: 38px;
-    color: #b76e79;
-    margin: 70px 0 15px;
-  }
-  .section-subtitle {
-    text-align: center;
-    color: #777;
-    font-size: 17px;
-    margin-bottom: 45px;
-    padding: 0 20px;
-  }
-
-  /* Products */
-  .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    padding: 0 40px 60px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(183,110,121,0.15);
-    transition: 0.3s;
-    text-align: center;
-  }
-  .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(183,110,121,0.3); }
-  .card img { width: 100%; height: 240px; object-fit: cover; }
-  .card h3 { color: #b76e79; margin: 15px 0 8px; font-size: 20px; }
-  .card .price { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 12px; }
-  .card button {
-    background: #b76e79;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    font-weight: 600;
-    transition: 0.3s;
-  }
-  .card button:hover { background: #d4a5a5; transform: scale(1.05); }
-
-  /* About */
-  .about {
-    background: white;
-    padding: 80px 40px;
-    text-align: center;
-  }
-  .about-content {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 17px;
+    font-weight: 500;
     color: #555;
-    line-height: 1.9;
+    transition: color 0.2s;
   }
-  .about-content p { margin-bottom: 18px; }
+  .nav-links a:hover { color: #000; }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .login { font-size: 15px; font-weight: 500; color: #333; }
+  .signup-btn {
+    background: #f0f0f0;
+    padding: 9px 20px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    transition: 0.2s;
+  }
+  .signup-btn:hover { background: #e4e4e4; }
 
-  /* Why Us */
-  .why-us {
-    padding: 80px 40px;
-    background: #fff8f3;
-  }
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .feature {
-    background: white;
-    padding: 35px 25px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(183,110,121,0.1);
-    transition: 0.3s;
-  }
-  .feature:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(183,110,121,0.25); }
-  .feature .icon { font-size: 45px; margin-bottom: 15px; }
-  .feature h3 { color: #b76e79; margin-bottom: 10px; font-size: 20px; }
-  .feature p { color: #666; font-size: 15px; }
-
-  /* Reviews */
-  .reviews {
-    background: white;
-    padding: 80px 40px;
-  }
-  .review-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .review {
-    background: #fff8f3;
-    padding: 30px;
-    border-radius: 15px;
-    border-left: 5px solid #b76e79;
-    transition: 0.3s;
-  }
-  .review:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(183,110,121,0.2); }
-  .stars { color: #f5b301; font-size: 20px; margin-bottom: 12px; }
-  .review p { color: #555; font-style: italic; margin-bottom: 15px; }
-  .review .name { font-weight: bold; color: #b76e79; }
-
-  /* FAQ */
-  .faq {
-    padding: 80px 40px;
-    background: #fff8f3;
-  }
-  .faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .faq-item {
-    background: white;
-    margin-bottom: 15px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(183,110,121,0.12);
-  }
-  .faq-q {
-    padding: 20px 25px;
-    font-weight: bold;
-    color: #b76e79;
-    cursor: pointer;
+  /* ================= HERO SECTION ================= */
+  .hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 17px;
-    transition: 0.3s;
+    max-width: 1240px;
+    margin: 60px auto 0;
+    padding: 0 48px;
+    gap: 60px;
+    min-height: calc(100vh - 160px);
   }
-  .faq-q:hover { background: #ffe4e1; }
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 25px;
+  .hero-text { flex: 1; max-width: 550px; }
+  .hero-text h1 {
+    font-size: 64px;
+    line-height: 1.05;
+    font-weight: 800;
+    color: #2d2d2d;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  .hero-text p {
+    font-size: 20px;
     color: #555;
-    transition: 0.4s ease;
-  }
-  .faq-item.active .faq-a { max-height: 300px; padding: 0 25px 20px; }
-  .faq-item.active .faq-q { background: #ffe4e1; }
-
-  /* Newsletter */
-  .newsletter {
-    background: linear-gradient(135deg, #d4a5a5, #b76e79);
-    color: white;
-    text-align: center;
-    padding: 70px 20px;
-  }
-  .newsletter h2 { font-size: 32px; margin-bottom: 15px; }
-  .newsletter p { font-size: 17px; margin-bottom: 25px; }
-  .newsletter form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    max-width: 550px;
-    margin: 0 auto;
-  }
-  .newsletter input {
-    padding: 14px 20px;
-    border: none;
-    border-radius: 30px;
-    font-size: 15px;
-    flex: 1;
-    min-width: 220px;
-    outline: none;
-  }
-  .newsletter button {
-    background: #3a2a2d;
-    color: white;
-    border: none;
-    padding: 14px 30px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .newsletter button:hover { background: #1a1013; transform: scale(1.05); }
-
-  /* Contact */
-  .contact {
-    background: white;
-    text-align: center;
-    padding: 80px 40px;
-  }
-  .contact h2 { color: #b76e79; font-size: 38px; margin-bottom: 15px; }
-  .contact-sub { color: #777; font-size: 17px; margin-bottom: 40px; }
-  .contact-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .contact-card {
-    background: #fff8f3;
-    padding: 35px 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(183,110,121,0.12);
-    transition: 0.3s;
-  }
-  .contact-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(183,110,121,0.25); }
-  .contact-card .icon { font-size: 40px; margin-bottom: 15px; }
-  .contact-card h3 { color: #b76e79; margin-bottom: 10px; font-size: 19px; }
-  .contact-card a {
-    color: #555;
-    text-decoration: none;
-    font-size: 15px;
-    word-break: break-word;
-    transition: 0.3s;
-  }
-  .contact-card a:hover { color: #b76e79; }
-
-  /* WhatsApp Float */
-  .whatsapp-float {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #25D366;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    text-decoration: none;
-    box-shadow: 0 5px 20px rgba(37,211,102,0.5);
-    z-index: 200;
-    transition: 0.3s;
+    gap: 8px;
   }
-  .whatsapp-float:hover { transform: scale(1.15); }
-
-  /* Footer */
-  footer {
-    background: #3a2a2d;
-    color: #ccc;
-    padding: 60px 40px 20px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto 40px;
-  }
-  .footer-col h3 { color: #ffe4e1; margin-bottom: 18px; font-size: 19px; }
-  .footer-col p, .footer-col a {
-    color: #bbb;
-    text-decoration: none;
+  .badge {
+    background: #1e6fff;
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 14px;
     font-size: 15px;
-    display: block;
-    margin-bottom: 10px;
-    transition: 0.3s;
-  }
-  .footer-col a:hover { color: #ffe4e1; padding-left: 5px; }
-  .footer-bottom {
-    text-align: center;
-    border-top: 1px solid #555;
-    padding-top: 20px;
-    font-size: 14px;
-    color: #999;
+    font-weight: 600;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    header { padding: 15px 20px; }
-    nav a { margin-left: 12px; font-size: 14px; }
-    .hero h1 { font-size: 34px; }
-    .hero p { font-size: 17px; }
-    .section-title { font-size: 28px; }
-    .products { padding: 0 20px 40px; }
-    .about, .why-us, .reviews, .faq, .contact { padding: 60px 20px; }
-    .logo { font-size: 22px; }
+  /* ================= UPLOAD CARD ================= */
+  .upload-card {
+    background: #ffffff;
+    width: 460px;
+    padding: 48px 32px;
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.08), 0 6px 20px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .btn-blue {
+    background: #1e6fff;
+    color: #fff;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 32px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    width: 100%;
+    max-width: 260px;
+  }
+  .btn-blue:hover {
+    background: #1557cc;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(30, 111, 255, 0.35);
+  }
+  .drop-text {
+    margin-top: 26px;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .drop-text small { color: #999; font-size: 13px; display: block; margin-top: 2px; }
+
+  /* Sample thumbnails */
+  .samples { margin-top: 44px; text-align: left; }
+  .samples p { font-size: 13px; color: #777; margin-bottom: 12px; font-weight: 500; }
+  .sample-imgs { display: flex; gap: 10px; }
+  .s-box {
+    width: 58px; height: 58px;
+    border-radius: 12px;
+    background-color: #eee;
+    cursor: pointer;
+    transition: 0.2s;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #eee;
+  }
+  .s-box:hover { transform: scale(1.06); border-color: #1e6fff; }
+
+  /* ================= EDITOR SECTION ================= */
+  .editor-section {
+    display: none;
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+  .editor-container {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+  .canvas-area {
+    background: repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50% / 24px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 480px;
+    padding: 30px;
+    position: relative;
+  }
+  canvas { max-width: 100%; max-height: 600px; display: block; }
+  
+  .sidebar {
+    padding: 30px 26px;
+    border-left: 1px solid #f0f0f0;
+    background: #fdfdfd;
+  }
+  .sidebar h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #2d2d2d;
+  }
+  .control-group { margin-bottom: 26px; }
+  .control-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  input[type="range"] {
+    width: 100%;
+    accent-color: #1e6fff;
+    height: 6px;
+    cursor: pointer;
+  }
+  .color-pick { display: flex; gap: 10px; align-items: center; }
+  input[type="color"] {
+    width: 48px; height: 42px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 3px;
+    background: #fff;
+  }
+  .btn-outline {
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    transition: 0.2s;
+    flex: 1;
+  }
+  .btn-outline:hover { border-color: #bbb; background: #f9f9f9; }
+  
+  .action-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+  .action-btns .btn-blue { max-width: 100%; padding: 14px; font-size: 15px; }
+
+  /* Drag over effect */
+  .upload-card.dragover {
+    border-color: #1e6fff;
+    background: #f5f9ff;
+    transform: scale(1.02);
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 960px) {
+    .nav-links { display: none; }
+    .hero {
+      flex-direction: column;
+      text-align: center;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .hero-text h1 { font-size: 44px; letter-spacing: -1px; }
+    .hero-text p { justify-content: center; font-size: 17px; }
+    .upload-card { width: 100%; max-width: 460px; }
+    .editor-container { grid-template-columns: 1fr; }
+    .sidebar { border-left: none; border-top: 1px solid #f0f0f0; }
+    .navbar { padding: 16px 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">Fati <span>Bracelets</span></div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-    <button class="cart-btn" onclick="viewCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+  <!-- ========= NAVBAR ========= -->
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#1e6fff"/>
+        <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="#1e6fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>MYS ENTERPRISES</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Uploads</a>
+      <a href="#">Bulk Editing</a>
+      <a href="#">API</a>
+      <a href="#">Plugins</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="login">Log in</a>
+      <a href="#" class="signup-btn">Sign up</a>
+    </div>
   </nav>
-</header>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <h1>Handmade Bracelets with Love 💕</h1>
-  <p>Unique designs • Premium quality • Perfect gift for every occasion</p>
-  <a href="#shop" class="btn">Shop Now</a>
-  <a href="https://wa.me/923703172066" class="btn btn-outline">Order on WhatsApp</a>
-</section>
+  <!-- ========= HERO / UPLOAD ========= -->
+  <main class="hero" id="heroSection">
+    <div class="hero-text">
+      <h1>Remove Image<br>Background</h1>
+      <p>100% Automatically and <span class="badge">Free</span></p>
+    </div>
 
-<!-- PRODUCTS -->
-<h2 class="section-title" id="shop">Our Collection</h2>
-<p class="section-subtitle">Handcrafted bracelets made with premium beads and love</p>
-<div class="products" id="productList"></div>
+    <div class="upload-card" id="uploadBox">
+      <input type="file" id="fileInput" accept="image/*" hidden>
+      
+      <button class="btn-blue" onclick="document.getElementById('fileInput').click()">
+        Upload Image
+      </button>
+      
+      <p class="drop-text">
+        or drop a file,
+        <small>paste image or URL</small>
+      </p>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <h2 class="section-title">About Fati Bracelets</h2>
-  <p class="section-subtitle">Our Story</p>
-  <div class="about-content">
-    <p>Welcome to <strong>Fati Bracelets</strong> — a small handmade jewelry brand based in the heart of <strong>Karachi, Pakistan</strong>. What started as a passion for crafting beautiful accessories has grown into a loved brand trusted by hundreds of happy customers.</p>
-    <p>Every bracelet is carefully handcrafted using premium quality beads, threads, and charms. We believe that jewelry is not just an accessory — it's a memory, a feeling, and a piece of art that tells your story.</p>
-    <p>Whether you're looking for a gift for a loved one, a matching bracelet for your best friend, or something special just for yourself — we've got something perfect for you. 💖</p>
-    <p><strong>Thank you for supporting our small business!</strong></p>
-  </div>
-</section>
+      <div class="samples">
+        <p>No image? Try one of these:</p>
+        <div class="sample-imgs">
+          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop');"></div>
+          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop');"></div>
+          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&auto=format&fit=crop');"></div>
+          <div class="s-box" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop');"></div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-<!-- WHY US -->
-<section class="why-us">
-  <h2 class="section-title">Why Choose Us?</h2>
-  <p class="section-subtitle">What makes Fati Bracelets special</p>
-  <div class="features">
-    <div class="feature">
-      <div class="icon">💎</div>
-      <h3>Premium Quality</h3>
-      <p>We use only the finest beads, threads, and materials that last for years.</p>
-    </div>
-    <div class="feature">
-      <div class="icon">✋</div>
-      <h3>100% Handmade</h3>
-      <p>Every piece is crafted by hand with love and attention to detail.</p>
-    </div>
-    <div class="feature">
-      <div class="icon">🚚</div>
-      <h3>Fast Delivery</h3>
-      <p>Quick delivery all over Pakistan. Cash on delivery available.</p>
-    </div>
-    <div class="feature">
-      <div class="icon">🎁</div>
-      <h3>Gift Wrapping</h3>
-      <p>Free beautiful gift packaging on every order — perfect for gifting!</p>
-    </div>
-    <div class="feature">
-      <div class="icon">💰</div>
-      <h3>Affordable Prices</h3>
-      <p>Premium quality at prices everyone can afford.</p>
-    </div>
-    <div class="feature">
-      <div class="icon">💬</div>
-      <h3>24/7 Support</h3>
-      <p>Reach us anytime on WhatsApp for orders and questions.</p>
-    </div>
-  </div>
-</section>
+  <!-- ========= EDITOR ========= -->
+  <section class="editor-section" id="editorSection">
+    <div class="editor-container">
+      
+      <div class="canvas-area">
+        <canvas id="canvas"></canvas>
+      </div>
 
-<!-- REVIEWS -->
-<section class="reviews" id="reviews">
-  <h2 class="section-title">Customer Reviews</h2>
-  <p class="section-subtitle">What our happy customers say</p>
-  <div class="review-grid">
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"MashAllah bohat pyari bracelets hain! Quality bhi bohat achi hai. Meri behen ko gift ki, wo bohat khush hui."</p>
-      <div class="name">— Ayesha K., Karachi</div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"Best quality at this price. Delivery bhi time pe mili. Highly recommended for gifts!"</p>
-      <div class="name">— Fatima R., Lahore</div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"Maine apni friend ke liye order kiya tha. Packaging bohat achi thi aur bracelet exactly waisi hi thi jaisi picture me thi."</p>
-      <div class="name">— Hira S., Islamabad</div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"Amazing customer service! WhatsApp pe bohat achi tarah guide kiya. Definitely order karungi dobara."</p>
-      <div class="name">— Maryam A., Rawalpindi</div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"Bracelet ki finishing bohat clean hai. Meri wife ko bohat pasand aya. Thank you Fati Bracelets!"</p>
-      <div class="name">— Ahmed M., Karachi</div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p>"Price ke hisaab se quality excellent hai. Mere sab friends ne poocha kahan se liya. Full paisa wasool!"</p>
-      <div class="name">— Sana T., Multan</div>
-    </div>
-  </div>
-</section>
+      <div class="sidebar">
+        <h3>Edit Image</h3>
+        
+        <div class="control-group">
+          <label>Background Color</label>
+          <div class="color-pick">
+            <input type="color" id="bgColor" value="#ffffff">
+            <button class="btn-outline" id="pickBtn">Pick from Image</button>
+          </div>
+        </div>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <h2 class="section-title">Frequently Asked Questions</h2>
-  <p class="section-subtitle">Aap ke sawalon ke jawab</p>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">How do I place an order? <span>+</span></div>
-      <div class="faq-a"><p>Simply WhatsApp us at <strong>0370 3172066</strong> with the bracelet name and your address. We'll confirm your order within minutes!</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Do you deliver all over Pakistan? <span>+</span></div>
-      <div class="faq-a"><p>Yes! We deliver all across Pakistan. Delivery time is 2-4 working days depending on your city.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Is Cash on Delivery available? <span>+</span></div>
-      <div class="faq-a"><p>Yes, Cash on Delivery (COD) is available all over Pakistan. You can also pay via EasyPaisa or JazzCash for faster processing.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can I customize a bracelet? <span>+</span></div>
-      <div class="faq-a"><p>Absolutely! We love custom orders. Just message us on WhatsApp with your idea, and we'll craft it specially for you.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Do you offer gift wrapping? <span>+</span></div>
-      <div class="faq-a"><p>Yes! Every order comes with free beautiful gift wrapping. Just mention it in your WhatsApp message.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What if I don't like the product? <span>+</span></div>
-      <div class="faq-a"><p>Customer satisfaction is our top priority. If you face any issue, contact us on WhatsApp within 3 days of delivery and we'll resolve it.</p></div>
-    </div>
-  </div>
-</section>
+        <div class="control-group">
+          <label>Tolerance: <span id="tolVal">30</span></label>
+          <input type="range" id="tolerance" min="1" max="150" value="30">
+        </div>
 
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <h2>Get Special Offers 💌</h2>
-  <p>Subscribe to receive new collection updates and exclusive discounts</p>
-  <form onsubmit="subscribe(event)">
-    <input type="email" placeholder="Enter your email" required>
-    <button type="submit">Subscribe</button>
-  </form>
-</section>
+        <div class="action-btns">
+          <button class="btn-blue" id="downloadBtn">⬇️ Download PNG</button>
+          <button class="btn-outline" id="resetBtn">Upload New Image</button>
+        </div>
+      </div>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <h2>Get in Touch</h2>
-  <p class="contact-sub">Hum se rabta karein — we'd love to hear from you!</p>
-  <div class="contact-cards">
-    <div class="contact-card">
-      <div class="icon">📱</div>
-      <h3>WhatsApp</h3>
-      <a href="https://wa.me/923703172066" target="_blank">0370 3172066</a>
     </div>
-    <div class="contact-card">
-      <div class="icon">📧</div>
-      <h3>Email</h3>
-      <a href="mailto:shehzadyji267@gmail.com">shehzadyji267@gmail.com</a>
-    </div>
-    <div class="contact-card">
-      <div class="icon">📍</div>
-      <h3>Address</h3>
-      <a href="https://maps.google.com/?q=Karachi,Pakistan" target="_blank">Karachi, Pakistan</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-col">
-      <h3>Fati Bracelets</h3>
-      <p>Handmade bracelets crafted with love in Karachi, Pakistan. Premium quality at affordable prices.</p>
-    </div>
-    <div class="footer-col">
-      <h3>Quick Links</h3>
-      <a href="#home">Home</a>
-      <a href="#shop">Shop</a>
-      <a href="#about">About Us</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#faq">FAQ</a>
-    </div>
-    <div class="footer-col">
-      <h3>Contact</h3>
-      <a href="https://wa.me/923703172066">📱 0370 3172066</a>
-      <a href="mailto:shehzadyji267@gmail.com">📧 shehzadyji267@gmail.com</a>
-      <a href="https://maps.google.com/?q=Karachi,Pakistan">📍 Karachi, Pakistan</a>
-    </div>
-    <div class="footer-col">
-      <h3>Follow Us</h3>
-      <a href="#">📷 Instagram</a>
-      <a href="#">📘 Facebook</a>
-      <a href="https://wa.me/923703172066">💬 WhatsApp</a>
-      <a href="#">🎵 TikTok</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    © 2025 Fati Bracelets. All rights reserved. Made with 💕 in Karachi
-  </div>
-</footer>
-
-<!-- WhatsApp Floating Button -->
-<a href="https://wa.me/923703172066" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
+  </section>
 
 <script>
-  const products = [
-    { name: "Rose Gold Beads", price: 850, img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500" },
-    { name: "Pearl Elegance", price: 1200, img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" },
-    { name: "Friendship Charm", price: 650, img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" },
-    { name: "Golden Twist", price: 999, img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=500" },
-    { name: "Boho Style", price: 750, img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=500" },
-    { name: "Crystal Dream", price: 1450, img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500" },
-    { name: "Pink Heart Charm", price: 899, img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500" },
-    { name: "Silver Minimalist", price: 799, img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" }
-  ];
+  /* ================= ELEMENTS ================= */
+  const navbar = document.getElementById('navbar');
+  const heroSection = document.getElementById('heroSection');
+  const editorSection = document.getElementById('editorSection');
+  const uploadBox = document.getElementById('uploadBox');
+  const fileInput = document.getElementById('fileInput');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const tolerance = document.getElementById('tolerance');
+  const tolVal = document.getElementById('tolVal');
+  const bgColor = document.getElementById('bgColor');
+  const pickBtn = document.getElementById('pickBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
 
-  let cart = 0;
-  const list = document.getElementById('productList');
+  let originalImage = null;
+  let originalData = null;
+  let picking = false;
+  let debounceTimer = null;
 
-  products.forEach(p => {
-    list.innerHTML += `
-      <div class="card">
-        <img src="${p.img}" alt="${p.name}">
-        <h3>${p.name}</h3>
-        <div class="price">Rs ${p.price}</div>
-        <button onclick="addToCart('${p.name}')">Add to Cart</button>
-      </div>
-    `;
+  /* ================= FAST FILE UPLOAD ================= */
+  fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  // Drag & Drop
+  ['dragover', 'dragenter'].forEach(evt => {
+    uploadBox.addEventListener(evt, e => { e.preventDefault(); uploadBox.classList.add('dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(evt => {
+    uploadBox.addEventListener(evt, e => { e.preventDefault(); uploadBox.classList.remove('dragover'); });
+  });
+  uploadBox.addEventListener('drop', e => {
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   });
 
-  function addToCart(name) {
-    cart++;
-    document.getElementById('cartCount').textContent = cart;
-    alert(name + " added to cart! 🛒\n\nCheckout ke liye WhatsApp karein: 0370 3172066");
+  function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) {
+      alert('Sirf image files allowed hain!');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      originalImage = new Image();
+      originalImage.onload = () => {
+        setupCanvas();
+        heroSection.style.display = 'none';
+        navbar.style.display = 'none';
+        editorSection.style.display = 'block';
+      };
+      originalImage.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
-  function viewCart() {
-    if (cart === 0) {
-      alert("Aap ka cart khali hai. Shop se bracelets add karein! 🛍️");
-    } else {
-      const msg = encodeURIComponent(`Hi Fati Bracelets! I want to order ${cart} bracelet(s). Please guide me.`);
-      if (confirm(`You have ${cart} item(s) in cart.\n\nClick OK to checkout on WhatsApp.`)) {
-        window.open(`https://wa.me/923703172066?text=${msg}`, '_blank');
+  function setupCanvas() {
+    // Speed optimization: Max width 800px for fast processing
+    const maxW = 800; 
+    let w = originalImage.width;
+    let h = originalImage.height;
+    if (w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+    
+    canvas.width = w;
+    canvas.height = h;
+    ctx.drawImage(originalImage, 0, 0, w, h);
+    
+    // Original data ko cache karo
+    originalData = ctx.getImageData(0, 0, w, h);
+    removeBackground();
+  }
+
+  /* ================= BACKGROUND REMOVAL (FAST) ================= */
+  // Slider mein debounce lagaya hai taake lag na kare
+  tolerance.addEventListener('input', () => {
+    tolVal.textContent = tolerance.value;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (originalData) removeBackground();
+    }, 50); // 50ms delay for smoothness
+  });
+
+  bgColor.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (originalData) removeBackground();
+    }, 50);
+  });
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.slice(1), 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+
+  function removeBackground() {
+    if (!originalData) return;
+    
+    // Fast copy using Uint8ClampedArray
+    const imgData = new ImageData(
+      new Uint8ClampedArray(originalData.data),
+      originalData.width,
+      originalData.height
+    );
+    const data = imgData.data;
+    const target = hexToRgb(bgColor.value);
+    const tol = parseInt(tolerance.value);
+    const tolSq = tol * tol * 3;
+
+    // Fast loop
+    for (let i = 0; i < data.length; i += 4) {
+      const dr = data[i] - target.r;
+      const dg = data[i + 1] - target.g;
+      const db = data[i + 2] - target.b;
+      
+      if ((dr * dr + dg * dg + db * db) <= tolSq) {
+        data[i + 3] = 0; // Transparent
       }
     }
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.putImageData(imgData, 0, 0);
   }
 
-  function toggleFaq(el) {
-    const item = el.parentElement;
-    const wasActive = item.classList.contains('active');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-    if (!wasActive) item.classList.add('active');
-  }
+  /* ================= COLOR PICKER ================= */
+  pickBtn.addEventListener('click', () => {
+    picking = true;
+    pickBtn.textContent = 'Click on image...';
+    pickBtn.style.color = '#1e6fff';
+    pickBtn.style.borderColor = '#1e6fff';
+    canvas.style.cursor = 'crosshair';
+  });
 
-  function subscribe(e) {
-    e.preventDefault();
-    alert("Shukriya! Aap subscribe ho gaye hain. 💌\n\nSpecial offers aap ke email pe bheje jayenge.");
-    e.target.reset();
-  }
+  canvas.addEventListener('click', e => {
+    if (!picking) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((e.clientX - rect.left) * (canvas.width / rect.width));
+    const y = Math.floor((e.clientY - rect.top) * (canvas.height / rect.height));
+    
+    const od = originalData.data;
+    const idx = (y * canvas.width + x) * 4;
+    const hex = '#' +
+      od[idx].toString(16).padStart(2, '0') +
+      od[idx + 1].toString(16).padStart(2, '0') +
+      od[idx + 2].toString(16).padStart(2, '0');
+      
+    bgColor.value = hex;
+    picking = false;
+    canvas.style.cursor = 'default';
+    pickBtn.textContent = 'Pick from Image';
+    pickBtn.style.color = '';
+    pickBtn.style.borderColor = '';
+    removeBackground();
+  });
+
+  /* ================= DOWNLOAD ================= */
+  downloadBtn.addEventListener('click', () => {
+    if (!originalData) return;
+    const link = document.createElement('a');
+    link.download = 'MYS-removed-bg.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  /* ================= RESET ================= */
+  resetBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    originalImage = null;
+    originalData = null;
+    heroSection.style.display = 'flex';
+    navbar.style.display = 'flex';
+    editorSection.style.display = 'none';
+    tolerance.value = 30;
+    tolVal.textContent = '30';
+    bgColor.value = '#ffffff';
+  });
 </script>
-
 </body>
 </html>
